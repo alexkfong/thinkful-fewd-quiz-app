@@ -1,0 +1,64 @@
+html {  
+  /*Enable anti-aliasing for typography in current browsers*/
+  -webkit-font-smoothing: antialiased;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+/*general rules for typography*/
+.centerText {
+  text-align: center;
+}
+
+/*other general rules*/
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.displayInlineBlock {
+  display: inline-block;
+}
+
+/*instructions section*/
+.roundedRectangle {
+  padding: 5px;
+  background-color: #ABC997;
+  color: white;
+  font-weight: 600;
+
+  /*rounded border*/
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; 
+  -khtml-border-radius: 5px;
+
+  /*transition effects*/
+  -webkit-transition: background-color 0.3s ease;
+  -moz-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+
+.roundedRectangle:hover {
+  background-color: #574321;
+}
+
+.leftRounded {
+  /*rounded border*/
+  -moz-border-radius: 5px 0px 0px 5px;
+  -webkit-border-radius: 5px 0px 0px 5px;
+  border-radius: 5px 0px 0px 5px; 
+  -khtml-border-radius: 5px 0px 0px 5px;
+}
+
+.rightRounded {
+  /*rounded border*/
+  -moz-border-radius: 0 5px 5px 0;
+  -webkit-border-radius: 0 5px 5px 0;
+  border-radius: 0 5px 5px 0; 
+  -khtml-border-radius: 0 5px 5px 0;
+}
+
