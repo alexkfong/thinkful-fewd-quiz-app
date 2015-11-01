@@ -75,6 +75,12 @@ h1, h2, h3, h4, h5, h6, p, li, ul, a, span, img, div, section {
 .marginRight40 { margin-right: 40px; }
 .marginRight50 { margin-right: 50px; }
 
+.margin10 { margin: 10px; }
+.margin20 { margin: 20px; }
+.margin30 { margin: 30px; }
+.margin40 { margin: 40px; }
+.margin50 { margin: 50px; }
+
 /*padding rules*/
 .paddingAbove10 { padding-top: 10px; }
 .paddingAbove20 { padding-top: 20px; }
@@ -99,3 +105,9 @@ h1, h2, h3, h4, h5, h6, p, li, ul, a, span, img, div, section {
 .paddingRight30 { padding-right: 30px; }
 .paddingRight40 { padding-right: 40px; }
 .paddingRight50 { padding-right: 50px; }
+
+.padding10 { padding: 10px; }
+.padding20 { padding: 20px; }
+.padding30 { padding: 30px; }
+.padding40 { padding: 40px; }
+.padding50 { padding: 50px; }
