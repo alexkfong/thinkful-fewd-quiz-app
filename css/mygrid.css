@@ -56,6 +56,11 @@ h1, h2, h3, h4, h5, h6, p, li, ul, a, span, img, div, section {
 .marginAbove30 { margin-top: 30px; }
 .marginAbove40 { margin-top: 40px; }
 .marginAbove50 { margin-top: 50px; }
+.marginAbove60 { margin-top: 60px; }
+.marginAbove70 { margin-top: 70px; }
+.marginAbove80 { margin-top: 80px; }
+.marginAbove90 { margin-top: 90px; }
+.marginAbove100 { margin-top: 100px; }
 
 .marginBelow10 { margin-bottom: 10px; }
 .marginBelow20 { margin-bottom: 20px; }

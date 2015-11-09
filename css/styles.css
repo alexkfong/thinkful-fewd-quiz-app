@@ -12,6 +12,10 @@ a:hover {
   text-align: center;
 }
 
+.rightAlignText {
+  text-align: right;
+}
+
 /*other general rules*/
 .center {
   margin-left: auto;
@@ -24,6 +28,14 @@ a:hover {
 
 .hidden {
   display: none;
+}
+
+.floatLeft {
+  float: left;
+}
+
+.floatRight {
+  float: right;
 }
 
 /*button styles*/
@@ -52,7 +64,26 @@ a:hover {
 
 /*"card" styles*/
 .card {
+  -moz-box-shadow:    3px 3px 5px 3px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 3px #ccc;
+  box-shadow:         3px 3px 5px 3px #ccc;
+}
+
+navbar {
+  position: absolute;
+  width: 100%;
+  background-color: white;
+
   -moz-box-shadow:    3px 3px 5px 1px #ccc;
   -webkit-box-shadow: 3px 3px 5px 1px #ccc;
   box-shadow:         3px 3px 5px 1px #ccc;
+}
+
+navbar > div > #logoMasthead > h1 {
+  font-size: 1rem;
+}
+
+#navbarInterface > li {
+  font-size: 0.9rem;
+  display: inline-block;
 }
