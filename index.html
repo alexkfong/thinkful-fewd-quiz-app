@@ -8,13 +8,14 @@ By Alex K. Fong for Thinkful's FEWD course -->
 	<title>The Interweb Examination</title>
 
 	<!-- Initialize typekit -->
-	<script src="https://use.typekit.net/mlg3xfl.js"></script>
+	<script src="https://use.typekit.net/ecj2sbd.js"></script>
 	<script>try{Typekit.load({ async: true });}catch(e){}</script>
 	
 	<!-- Link style sheets -->
 	<link rel="stylesheet" href="CSS/normalize.css">
 	<link rel="stylesheet" href="CSS/mygrid.css">
 	<link rel="stylesheet" href="CSS/styles.css">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
 	<!-- CDN call to JQUERY -->
 	<script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
@@ -28,15 +29,17 @@ By Alex K. Fong for Thinkful's FEWD course -->
   	<!-- Link to my JavaScript -->
   	<script src="JS/app.js"></script>
 </head>
-<body class="paddingAbove20 paddingBelow50">
-	<navbar class="paddingBelow20">
+<body class="paddingBelow50">
+	
+	<!-- Navbar has score and floats above "quiz area" once a quiz begins. If no quiz, the navbar is hidden -->
+	<navbar class="paddingAbove20 paddingBelow10">
 		<div class="grid12 center paddingRight30 paddingLeft30">
 			<div id="logoMasthead" class="grid4 displayInlineBlock">
-				<img id="logo" class="grid1" src="images/shop-lister-	logo.svg">
-				<h1 class="floatRight marginRight40 marginAbove10">The Interweb<br>Examination</h1>
+				<img id="logo" class="grid1" src="images/interweb-examination-logo.svg">
+				<h1 class="floatRight marginRight30 marginAbove10 uppercase"><span ID="mastheadThe">The</span> Interweb<br><span id="mastheadExamination">Examination</span></h1>
 			</div>
-			<ul ID="navbarInterface" class="floatRight rightAlignText marginAbove20">
-				<li class="marginRight10">Question: 1 of 5</li>
+			<ul ID="navbarInterface" class="floatRight rightAlignText marginAbove10">
+				<li class="marginRight10">Question: 1 <span class="italic">of</span> 5</li>
 				<li class="marginRight10">Score: 0</li>
 				<li>
 					<div class="grid2 roundedRectangle">
@@ -46,16 +49,43 @@ By Alex K. Fong for Thinkful's FEWD course -->
 			</ul>
 		</div>
 	</navbar>
-	<header class="grid12 center card marginAbove100 padding30">
-		<h1 class="centerText">The Interweb<br>Examination</h1>
-		<h2 class="centerText marginAbove10">A Mandarin Chinese quiz app</h2>
-		<p class="centerText marginAbove10">Like the Imperial examinations of old, this quiz aims to deduce whether you have got your knowledge of Mandarin Chinese and simplified characters together — or not.</p>
-		<p class="centerText roundedRectangle marginAbove20">Start</p>
-		<p class="centerText roundedRectangle marginAbove20 hidden">New quiz</p>
+
+	<!-- Empty div pushes the header down when the navbar is visible -->
+	<div class="emptySpace115" ID="quizSpace"></div>
+
+	<!-- empty div pushes the header down when navbar is hidden -->
+	<div class="emptySpace50 hidden" ID="noQuizSpace"></div>
+	<header class="grid12 center card padding30">
+		<div class="grid2 center">
+			<img class="grid2" src="images/interweb-examination-logo.svg" alt="The Interweb Examination logo">
+		</div>
+		<h1 class="masthead marginAbove20 centerText uppercase"><span id="mastheadThe">The</span> Interweb<br><span id="mastheadExamination">Examination</span></h1>
+		<h2 class="centerText marginAbove20 uppercase" id="deck">A Mandarin Chinese quiz app</h2>
+		<p class="centerText marginAbove20">Like the Imperial examinations of old, this quiz aims to deduce whether you have got your knowledge of Mandarin Chinese and simplified characters together — or not.</p>
+		<div class="roundedRectangle grid2 center marginAbove20">
+			<p class="centerText hidden">Start</p>
+			<p class="centerText">New quiz</p>
+		</div>
 	</header>
 	
-	<section class="grid12 center card marginAbove30 padding30">
-		<h2>The question goes right here</h2>
+	<!-- Each question appears in a section card -->
+	<section id="question1" class="grid12 center card marginAbove30 padding30">
+		<div class="grid1 circle center">
+			<h2 class="centerText question colorRed"><span class="chinese chineseSmall">第</span>1</h2>
+		</div>
+		<p class="centerText marginAbove20">This is the question and it goes right here like this. Could ask user to explain what these characters are:</p>
+		<p class="chinese chineseBig centerText colorRed">中文</p>
+		<div class="marginAbove10 yourAnswer">
+			<p class="centerText">This was the answer you selected</p>
+		</div>
+		<p class="centerText marginAbove20 italic">Displays either the user was correct or the correct answer.</p>
+	</section>
+	<section id="question2" class="grid12 center card marginAbove30 padding30">
+		<div class="grid1 circle center">
+			<h2 class="centerText question colorRed"><span class="chinese chineseSmall">第</span>2</h2>
+		</div>
+		<p class="centerText marginAbove20">This is the question and it goes right here like this. Could ask user to explain what these characters are:</p>
+		<p class="chinese chineseBig centerText colorRed">中文</p>
 		<div class="roundedRectangle marginAbove10">
 			<p class="centerText">Answer 1</p>
 		</div>
@@ -68,7 +98,23 @@ By Alex K. Fong for Thinkful's FEWD course -->
 		<div class="roundedRectangle marginAbove10">
 			<p class="centerText">Answer 4</p>
 		</div>
-	<footer>
+	</section>
+	<section id="endQuizCard" class="grid12 center card marginAbove30 padding30">
+		<h2 class="masthead centerText uppercase colorRed">Nice work!</h2>
+		<p class="centerText marginAbove20">You've finished the quiz.<br>You scored ## points, making you a [ranking] of Chinese.</p>
+		<div class="roundedRectangle grid2 center marginAbove20">
+			<p class="centerText">New quiz</p>
+		</div>
+	</section>
+	<footer id="aboutThisApp" class="grid12 center card marginAbove30 padding30">
+		<h2 class="masthead centerText uppercase colorRed">About this app</h2>
+		<p class="centerText marginAbove20">This app was designed by Alex K. Fong for Thinkful's Frontend Web Development course. The accuracy of the Mandarin is debatable.</p>
+		<!-- Add social media here -->
+		<ul id="socialMedia" class="marginAbove20 grid4 center">
+			<li class="displayInlineBlock centerText"><a class="roundedRectangle" href="http://www.github.com/alexkfong"><i class="fa fa-github fa grid1" alt="Github"></i></a></li>
+			<li class="displayInlineBlock centerText"><a class="roundedRectangle" href="http://www.twitter.com/alexkfong"><i class="fa fa-twitter fa grid1" alt="Twitter"></i></a></li>
+			<li class="displayInlineBlock centerText"><a class="roundedRectangle" href="http://plus.google.com/110350459753554134172"><i class="fa fa-google-plus fa grid1" alt="Google+"></i></a></li>
+		</ul>
 	</footer>
 </body>
 </html>
