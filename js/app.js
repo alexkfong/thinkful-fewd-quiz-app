@@ -27,6 +27,8 @@ function startQuiz( quizLength ) {
 	var score = 0;
 	var question = getQuestions( quizLength );
 
+	// code should also reset displayed score and questions in navbar
+
 	return {
 		numberOfQuestions: numberOfQuestions,
 		currentQuestion: currentQuestion,
@@ -35,17 +37,28 @@ function startQuiz( quizLength ) {
 	};
 };
 
+// populates an array with randomly selected questions
 function getQuestions( quizLength ) {
 	
 	var questionBank = [];
-	var randomNumber = [];
+	var questionNumbers = [];
+	var totalQuestions = 5; // pre-determined constant
 
 	for( var i=0; i < quizLength; i++ ) {
 
-		
-		
-		questionBank[i] = makeQuestion( randomNumber[i] );
-		console.log( questionBank[i]);
+		//The range is determined by the number of pre-coded
+		//questions available.
+		var randomNumber = randomQuestionNumber (1, totalQuestions);
+
+		// if the random number isn't used, proceed. If not,
+		// keep generating a random number until that case
+		while ( checkRandomNumber( quizLength, randomNumber, questionNumbers ) ) {
+			randomNumber = randomQuestionNumber (1, totalQuestions );
+		}
+
+		questionBank[i] = makeQuestion( randomNumber );
+		questionNumbers[i] = randomNumber;
+ 		console.log( questionBank[i] );
 
 	}
 
@@ -53,6 +66,23 @@ function getQuestions( quizLength ) {
 
 };
 
+// ensures the random number for a question hasn't been used
+function checkRandomNumber( quizLength, randomNumber, questionNumbers ) {
+
+	var numberWasUsed = false;
+
+	for( var i=0; i < quizLength; i++ ) {
+		if( questionNumbers[i] == randomNumber ) {
+			numberWasUsed = true;
+		}
+	}
+
+	return numberWasUsed;
+
+}
+
+// makeQuestion receives a random number and returns a 
+// pre-written quiz question based on that number
 function makeQuestion( number ) {
 
 	var questionText;
@@ -74,7 +104,10 @@ function makeQuestion( number ) {
 		questionText = "This is a test question 4 here";
 		answers = ['Answer1', 'Answer2', 'Answer3', 'Answer4'];
 	}
-
+	else if( number == 5 ) {
+		questionText = "This is a test question 5 here";
+		answers = ['Answer1', 'Answer2', 'Answer3', 'Answer4'];
+	}
 
 	return {
 		questionText: questionText,
