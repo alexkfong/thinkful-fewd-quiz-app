@@ -35,14 +35,14 @@ By Alex K. Fong for Thinkful's FEWD course -->
 <body class="paddingBelow50">
 	
 	<!-- Navbar has score and floats above "quiz area" once a quiz begins. If no quiz, the navbar is hidden -->
-	<navbar class="paddingAbove20 paddingBelow10">
+	<navbar class="paddingAbove20 paddingBelow10 hidden">
 		<div class="grid12 center paddingRight30 paddingLeft30">
 			<div id="logoMasthead" class="grid4 displayInlineBlock">
 				<img id="logo" class="grid1" src="images/interweb-examination-logo.svg">
 				<h1 class="floatRight marginRight30 marginAbove10 uppercase"><span ID="mastheadThe">The</span> Interweb<br><span id="mastheadExamination">Examination</span></h1>
 			</div>
 			<ul ID="navbarInterface" class="floatRight rightAlignText marginAbove10">
-				<li class="marginRight10">Question: <span id="questionNumber">##</span> <span class="italic">of</span> <span="totalQuestions">##</span></li>
+				<li class="marginRight10">Question: <span id="questionNumber">##</span> <span class="italic">of</span> <span id="totalQuestions">##</span></li>
 				<li class="marginRight10">Score: <span id="currentScore">##</span></li>
 				<li>
 					<div class="grid2 roundedRectangle newQuizButton">
@@ -54,10 +54,11 @@ By Alex K. Fong for Thinkful's FEWD course -->
 	</navbar>
 
 	<!-- Empty div pushes the header down when the navbar is visible -->
-	<div class="emptySpace115" ID="quizSpace"></div>
+	<div class="emptySpace115 hidden" ID="quizSpace"></div>
 
 	<!-- empty div pushes the header down when navbar is hidden -->
-	<div class="emptySpace50 hidden" ID="noQuizSpace"></div>
+	<div class="emptySpace50" ID="noQuizSpace"></div>
+	
 	<header class="grid12 center card padding30">
 		<div class="grid2 center">
 			<img class="grid2" src="images/interweb-examination-logo.svg" alt="The Interweb Examination logo">
@@ -66,13 +67,19 @@ By Alex K. Fong for Thinkful's FEWD course -->
 		<h2 class="centerText marginAbove20 uppercase" id="deck">A Mandarin Chinese quiz app</h2>
 		<p class="centerText marginAbove20">Like the Imperial examinations of old, this quiz aims to deduce whether you have got your knowledge of Mandarin Chinese and simplified characters together — or not.</p>
 		<div class="roundedRectangle grid2 center marginAbove20 newQuizButton">
-			<p class="centerText hidden">Start</p>
-			<p class="centerText">New quiz</p>
+			<p id="headerStartButton" class="centerText">Start</p>
+			<p id="headerNewQuizButton" class="centerText hidden">New quiz</p>
 		</div>
 	</header>
 	
-	<!-- Each question appears in a section card -->
-	<section id="question1" class="grid12 center card marginAbove30 padding30">
+	<!-- Questions appear in the questions section -->
+	<section id="questionsSection">
+		
+
+	</section>
+
+
+	<!-- <section id="question1" class="grid12 center card marginAbove30 padding30 hidden">
 		<div class="grid1 circle center">
 			<h2 class="centerText question colorRed"><span class="chinese chineseSmall colorRed">第</span>1</h2>
 		</div>
@@ -82,8 +89,8 @@ By Alex K. Fong for Thinkful's FEWD course -->
 			<p class="centerText">This was the answer you selected</p>
 		</div>
 		<p class="centerText marginAbove20 italic">Displays either the user was correct or the correct answer.</p>
-	</section>
-	<section id="question2" class="grid12 center card marginAbove30 padding30">
+	</section> -->
+	<!-- <section id="question2" class="grid12 center card marginAbove30 padding30 hidden">
 		<div class="grid1 circle center">
 			<h2 class="centerText question colorRed"><span class="chinese chineseSmall colorRed">第</span>2</h2>
 		</div>
@@ -101,8 +108,8 @@ By Alex K. Fong for Thinkful's FEWD course -->
 		<div class="roundedRectangle marginAbove10">
 			<p class="centerText">Answer 4</p>
 		</div>
-	</section>
-	<section id="endQuizCard" class="grid12 center card marginAbove30 padding30">
+	</section> -->
+	<section id="endQuizCard" class="grid12 center card marginAbove30 padding30 hidden">
 		<h2 class="masthead centerText uppercase colorRed">Nice work!</h2>
 		<p class="centerText marginAbove20">You've finished the quiz.<br>You scored ## points, making you a [ranking] of Chinese.</p>
 		<div class="roundedRectangle grid2 center marginAbove20 newQuizButton">

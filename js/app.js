@@ -5,11 +5,22 @@ $(document).ready( function() {
 	// Initialize a new quiz
 	$('.newQuizButton').click( function() {
 		console.log("New quiz started!");
+
 		quiz = startQuiz(3);
 
-		console.log( quiz );
+		// First quiz, load the navbar
+		if( $('navbar').css('display') == 'none' ) {
+			$('#noQuizSpace').hide();
+			$('#quizSpace').show();
+			$('navbar').fadeToggle( 300, 'linear');
+			$('#headerStartButton').hide();
+			$('#headerNewQuizButton').fadeToggle( 300, 'linear');
+		}
 
-		quiz.incrementScore (5);
+		// load the first question here
+		displayQuestionDOM( quiz.question[ quiz.currentQuestion ], quiz.currentQuestion );
+
+		console.log( quiz );
 	});
 
 });
@@ -36,15 +47,23 @@ function startQuiz( quizLength ) {
 		setScoreDOM( score );
 	}
 
+	function incrementQuestion () {
+		currentQuestion ++;
+		setCurrentQuestionDOM( currentQuestion );
+	}
+
 	// code should also reset displayed score and questions in navbar
 	setScoreDOM( 0 );
+	setCurrentQuestionDOM( currentQuestion );
+	setTotalQuestionsDOM( numberOfQuestions );
 
 	return {
 		numberOfQuestions: numberOfQuestions,
 		currentQuestion: currentQuestion,
 		score: score,
 		question: question,
-		incrementScore: incrementScore
+		incrementScore: incrementScore,
+		incrementQuestion: incrementQuestion
 	};
 };
 
@@ -90,7 +109,7 @@ function checkRandomNumber( quizLength, randomNumber, questionNumbers ) {
 
 	return numberWasUsed;
 
-}
+};
 
 // makeQuestion receives a random number and returns a 
 // pre-written quiz question based on that number
@@ -126,9 +145,37 @@ function makeQuestion( number ) {
 	};
 };
 
-//Updates the scoreboard
+//Updates the scoreboard in navbar
 function setScoreDOM( score ) {
 
 	$('#currentScore').text( score );
 
-}
+};
+
+//Updates what question we're in navbar
+function setCurrentQuestionDOM( currentQuestion ) {
+
+	$('#questionNumber').text( currentQuestion );
+
+};
+
+//Updates the total quiz length in the navbar
+function setTotalQuestionsDOM( quizLength ) {
+
+	$('#totalQuestions').text( quizLength );
+
+};
+
+function displayQuestionDOM( question, currentQuestion ) {
+
+	// Build html for the question
+	var	questionHTML = "<div id=\"question" + currentQuestion + "\" class=\"grid12 center card marginAbove30 padding30 hidden\">";
+		questionHTML += "<div class=\"grid1 circle center\">";
+		questionHTML += "<h2 class=\"centerText question colorRed\"><span class=\"chinese chineseSmall colorRed\">第</span>" + currentQuestion + "</h2></div>";
+		questionHTML += "<p class=\"centerText marginAbove20\">" + question.questionText + "</p>";
+		questionHTML += "</div>";
+
+	$( '#questionsSection').append( questionHTML );
+	$( '#question' + currentQuestion ).fadeToggle( 300, 'linear' );
+
+};
