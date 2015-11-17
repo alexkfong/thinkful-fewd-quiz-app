@@ -8,6 +8,8 @@ $(document).ready( function() {
 		quiz = startQuiz(3);
 
 		console.log( quiz );
+
+		quiz.incrementScore (5);
 	});
 
 });
@@ -27,13 +29,22 @@ function startQuiz( quizLength ) {
 	var score = 0;
 	var question = getQuestions( quizLength );
 
+	// helper function increments score in the quiz and
+	// makes a call to update the DOM
+	function incrementScore ( scoreIncrement ) {
+		score += scoreIncrement;
+		setScoreDOM( score );
+	}
+
 	// code should also reset displayed score and questions in navbar
+	setScoreDOM( 0 );
 
 	return {
 		numberOfQuestions: numberOfQuestions,
 		currentQuestion: currentQuestion,
 		score: score,
-		question: question
+		question: question,
+		incrementScore: incrementScore
 	};
 };
 
@@ -114,3 +125,10 @@ function makeQuestion( number ) {
 		answers: answers
 	};
 };
+
+//Updates the scoreboard
+function setScoreDOM( score ) {
+
+	$('#currentScore').text( score );
+
+}
