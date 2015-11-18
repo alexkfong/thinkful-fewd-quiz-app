@@ -4,19 +4,20 @@ $(document).ready( function() {
 
 	// Initialize a new quiz
 	$('.newQuizButton').click( function() {
-		console.log("New quiz started!");
 
+		console.log("New quiz started!");
+		
 		quiz = startQuiz(3);
 
 		// First quiz, load the navbar
 		if( $('navbar').css('display') == 'none' ) {
-			$('#noQuizSpace').hide();
-			$('#quizSpace').show();
-			$('navbar').fadeToggle( 300, 'linear');
-			$('#headerStartButton').hide();
-			$('#headerNewQuizButton').fadeToggle( 300, 'linear');
-		}
+		
+			switchToQuizInterfaceDOM();
 
+		}
+		
+		clearOldQuizDOM();	
+		
 		// load the first question here
 		displayQuestionDOM( quiz.question[ quiz.currentQuestion ], quiz.currentQuestion );
 
@@ -145,6 +146,23 @@ function makeQuestion( number ) {
 	};
 };
 
+function clearOldQuizDOM() {
+
+	$( '#questionsSection' ).children().remove();
+
+};
+
+//
+function switchToQuizInterfaceDOM() {
+
+	$('#noQuizSpace').hide();
+	$('#quizSpace').show();
+	$('navbar').fadeToggle( 300, 'linear');
+	$('#headerStartButton').hide();
+	$('#headerNewQuizButton').fadeToggle( 300, 'linear');
+
+}; 
+
 //Updates the scoreboard in navbar
 function setScoreDOM( score ) {
 
@@ -166,8 +184,11 @@ function setTotalQuestionsDOM( quizLength ) {
 
 };
 
+// Incomplete function that displays question cards
 function displayQuestionDOM( question, currentQuestion ) {
 
+	console.log( "Building question card");
+	
 	// Build html for the question
 	var	questionHTML = "<div id=\"question" + currentQuestion + "\" class=\"grid12 center card marginAbove30 padding30 hidden\">";
 		questionHTML += "<div class=\"grid1 circle center\">";
@@ -175,7 +196,7 @@ function displayQuestionDOM( question, currentQuestion ) {
 		questionHTML += "<p class=\"centerText marginAbove20\">" + question.questionText + "</p>";
 		questionHTML += "</div>";
 
-	$( '#questionsSection').append( questionHTML );
+	$( '#questionsSection' ).append( questionHTML );
 	$( '#question' + currentQuestion ).fadeToggle( 300, 'linear' );
 
 };
