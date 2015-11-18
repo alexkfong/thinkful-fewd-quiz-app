@@ -19,7 +19,7 @@ $(document).ready( function() {
 		clearOldQuizDOM();	
 		
 		// load the first question here
-		displayQuestionDOM( quiz.question[ quiz.currentQuestion ], quiz.currentQuestion );
+		displayQuestionDOM( quiz.question[ quiz.currentQuestion - 1 ], quiz.currentQuestion );
 
 		console.log( quiz );
 	});
@@ -148,6 +148,7 @@ function makeQuestion( number ) {
 
 function clearOldQuizDOM() {
 
+	$( '#questionsSection' ).children().fadeToggle( 300, 'linear' );
 	$( '#questionsSection' ).children().remove();
 
 };
