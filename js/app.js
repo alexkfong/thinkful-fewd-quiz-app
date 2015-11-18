@@ -117,31 +117,38 @@ function checkRandomNumber( quizLength, randomNumber, questionNumbers ) {
 function makeQuestion( number ) {
 
 	var questionText;
+	var chineseText;
 	var answers;
 
 	if( number == 1 ) {
-		questionText = "This is test question 1 here";
-		answers = ['Answer1', 'Answer2', 'Answer3', 'Answer4'];
+		questionText = "Translate the following sentence:";
+		chineseText = "你要几个包子?";
+		answers = ['How many bags do you want?', 'What kind of bag do you want?', 'How many dumplings do you want?', 'What kind of dumplings would you like?'];
 	}
 	else if( number == 2 ) {
 		questionText = "This is a test question 2 here";
+		chineseText = "你要几个包子?";
 		answers = ['Answer1', 'Answer2', 'Answer3', 'Answer4'];
 	}
 	else if( number == 3 ) {
 		questionText = "This is a test question 3 here";
+		chineseText = "你要几个包子?";
 		answers = ['Answer1', 'Answer2', 'Answer3', 'Answer4'];
 	}
 	else if( number == 4 ) {
 		questionText = "This is a test question 4 here";
+		chineseText = "你要几个包子?";
 		answers = ['Answer1', 'Answer2', 'Answer3', 'Answer4'];
 	}
 	else if( number == 5 ) {
 		questionText = "This is a test question 5 here";
+		chineseText = "你要几个包子?";
 		answers = ['Answer1', 'Answer2', 'Answer3', 'Answer4'];
 	}
 
 	return {
 		questionText: questionText,
+		chineseText: chineseText,
 		answers: answers
 	};
 };
@@ -160,6 +167,7 @@ function switchToQuizInterfaceDOM() {
 	$('#quizSpace').show();
 	$('navbar').fadeToggle( 300, 'linear');
 	$('#headerStartButton').hide();
+	$('#introduction').fadeToggle( 300, 'linear' );
 	$('#headerNewQuizButton').fadeToggle( 300, 'linear');
 
 }; 
@@ -195,6 +203,14 @@ function displayQuestionDOM( question, currentQuestion ) {
 		questionHTML += "<div class=\"grid1 circle center\">";
 		questionHTML += "<h2 class=\"centerText question colorRed\"><span class=\"chinese chineseSmall colorRed\">第</span>" + currentQuestion + "</h2></div>";
 		questionHTML += "<p class=\"centerText marginAbove20\">" + question.questionText + "</p>";
+		questionHTML += "<p class=\"chinese chineseBig centerText colorRed\">" + question.chineseText + "</p>";
+
+	for( var i=0; i < 4; i++ ) {
+		questionHTML += "<div class=\"marginAbove10 roundedRectangle\">";
+		questionHTML += "<p class=\"centerText\">" + question.answers[i] + "</p>";
+		questionHTML += "</div>";
+	}
+
 		questionHTML += "</div>";
 
 	$( '#questionsSection' ).append( questionHTML );
