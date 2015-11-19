@@ -24,6 +24,10 @@ $(document).ready( function() {
 		console.log( quiz );
 	});
 
+	$( '#questionsSection' ).find( '.card' ).find( '.roundedRectangle' ).click( function() {
+		console.log("Answer clicked");
+	});
+
 });
 
 // Random number will be used to generate a random selection of questions
@@ -206,7 +210,7 @@ function displayQuestionDOM( question, currentQuestion ) {
 		questionHTML += "<p class=\"chinese chineseBig centerText colorRed\">" + question.chineseText + "</p>";
 
 	for( var i=0; i < 4; i++ ) {
-		questionHTML += "<div class=\"marginAbove10 roundedRectangle\">";
+		questionHTML += "<div id=\"answer" + i + "\"class=\"marginAbove10 roundedRectangle\">";
 		questionHTML += "<p class=\"centerText\">" + question.answers[i] + "</p>";
 		questionHTML += "</div>";
 	}
