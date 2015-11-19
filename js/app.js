@@ -1,11 +1,12 @@
 $(document).ready( function() {
 
 	var quiz;
+	var quizLength = 3;
 
 	// Initialize a new quiz
 	$('.newQuizButton').click( function() {
 		
-		quiz = startQuiz(3);
+		quiz = startQuiz( quizLength );
 
 		// First quiz, load the navbar
 		if( $('navbar').css('display') == 'none' ) {		
@@ -22,18 +23,25 @@ $(document).ready( function() {
 	// Answer to question has been clicked
 	$( '#questionsSection' ).on( 'click', '.card > .roundedRectangle', function() {
 		
-		console.log("Answer clicked");
+		var yourGuess = parseInt( this.id, 10 );
+		var isCorrect = checkAnswer( quiz.question[ quiz.currentQuestion - 1 ], yourGuess );
+		
+		giveFeedbackDOM ( isCorrect, quiz, yourGuess );
 
-		var isCorrect = checkAnswer( quiz.question[ quiz.currentQuestion - 1 ], parseInt( this.id, 10 ) );
+		if( quiz.currentQuestion != quizLength ) {
 
-		console.log(isCorrect);
+			// quiz is still going. increment question number and update ui
+			quiz.currentQuestion++;
+			setCurrentQuestionDOM( quiz.currentQuestion );
+			displayQuestionDOM( quiz.question[ quiz.currentQuestion - 1 ], quiz.currentQuestion );
 
-		// give feedback to the user with the answer card
+		}
+		else {
 
-		// if it's correct, increment the score
+			// the quiz is over. prepare and show the end card
+			displayEndQuizCardDOM( quiz.score, quizLength );
 
-		// display the next question or the end card
-	
+		}
 	});
 
 });
@@ -101,8 +109,6 @@ function getQuestions( quizLength ) {
 
 		questionBank[i] = makeQuestion( randomNumber );
 		questionNumbers[i] = randomNumber;
- 		console.log( questionBank[i] );
-
 	}
 
 	return questionBank;
@@ -136,32 +142,32 @@ function makeQuestion( number ) {
 	if( number == 1 ) {
 		questionText = "Translate the following sentence:";
 		chineseText = "你要几个包子?";
-		answers = ['How many bags do you want?', 'What kind of bag do you want?', 'How many dumplings do you want?', 'What kind of dumplings would you like?'];
+		answers = ['How many bags do you want?', 'What kind of bag do you want?', 'How many buns do you want?', 'What kind of buns would you like?'];
 		key = 2;
 	}
 	else if( number == 2 ) {
-		questionText = "This is a test question 2 here";
-		chineseText = "你要几个包子?";
-		answers = ['Answer1', 'Answer2', 'Answer3', 'Answer4'];
-		key = 1;
+		questionText = "What does the following character mean?";
+		chineseText = "块";
+		answers = ['Piece, lump or chunk', 'A measure word for pieces, lumps or chunks', 'A measure word for money', 'All of the above'];
+		key = 3;
 	}
 	else if( number == 3 ) {
-		questionText = "This is a test question 3 here";
-		chineseText = "你要几个包子?";
-		answers = ['Answer1', 'Answer2', 'Answer3', 'Answer4'];
+		questionText = "Translate the following sentence:";
+		chineseText = "我不太会点中餐";
+		answers = ['I do not know how to order Chinese food.', 'I am not very good at ordering Chinese food.', 'I know how to order Chinese food.', 'I am very good at ordering Chinese food.'];
 		key = 1;
 	}
 	else if( number == 4 ) {
-		questionText = "This is a test question 4 here";
-		chineseText = "你要几个包子?";
-		answers = ['Answer1', 'Answer2', 'Answer3', 'Answer4'];
-		key = 1;
+		questionText = "What do you do when you are on a subway train and a fellow passenger says the following to you?";
+		chineseText = "下车";
+		answers = ['Move aside', 'Take a seat', 'Give up your seat', 'Do nothing'];
+		key = 0;
 	}
 	else if( number == 5 ) {
-		questionText = "This is a test question 5 here";
-		chineseText = "你要几个包子?";
-		answers = ['Answer1', 'Answer2', 'Answer3', 'Answer4'];
-		key = 1;
+		questionText = "The following sentence is incorrect. Which character would you move to make it correct?";
+		chineseText = "要不要吗?";
+		answers = ['First', 'Second', 'Third', 'Fourth'];
+		key = 3;
 	}
 
 	return {
@@ -183,7 +189,45 @@ function checkAnswer ( question, guess ) {
 
 };
 
+function getEndRank ( score, possibleScore ) {
+
+	var percentile = (score / possibleScore) * 100;
+
+	if( percentile > 90 ) {
+		return "sage";
+	}
+	else if( percentile >= 80 ) {
+		return "master";
+	}
+	else if( percentile >= 70 ) {
+		return "senior disciple";
+	}	
+	else if( percentile >= 60 ) {
+		return "disciple";
+	}
+	else {
+		return "apprentice";
+	}	
+		
+};
+
+// Sets stage for a new quiz
 function clearOldQuizDOM() {
+
+	$( '#questionsSection' ).children().fadeToggle( 300, 'linear' );
+	$( '#questionsSection' ).children().remove();
+	$( '#answersSection' ).children().fadeToggle( 300, 'linear' );
+	$( '#answersSection' ).children().remove();
+
+	if( $('#endQuizCard').css('display') != 'none' ) {
+		$('#endQuizCard').fadeToggle( 300, 'linear' );
+		$('body').scrollTop(0);
+	}
+
+};
+
+// Only removes the question
+function clearQuestionDOM() {
 
 	$( '#questionsSection' ).children().fadeToggle( 300, 'linear' );
 	$( '#questionsSection' ).children().remove();
@@ -225,8 +269,6 @@ function setTotalQuestionsDOM( quizLength ) {
 
 // Incomplete function that displays question cards
 function displayQuestionDOM( question, currentQuestion ) {
-
-	console.log( "Building question card");
 	
 	// Build html for the question
 	var	questionHTML = "<div id=\"question" + currentQuestion + "\" class=\"grid12 center card marginAbove30 padding30 hidden\">";
@@ -235,6 +277,7 @@ function displayQuestionDOM( question, currentQuestion ) {
 		questionHTML += "<p class=\"centerText marginAbove20\">" + question.questionText + "</p>";
 		questionHTML += "<p class=\"chinese chineseBig centerText colorRed\">" + question.chineseText + "</p>";
 
+	// Cycle through answers array and generate HTML for each
 	for( var i=0; i < 4; i++ ) {
 		questionHTML += "<div id=\"" + i + "answer\" class=\"marginAbove10 roundedRectangle\">";
 		questionHTML += "<p class=\"centerText\">" + question.answers[i] + "</p>";
@@ -243,7 +286,50 @@ function displayQuestionDOM( question, currentQuestion ) {
 
 		questionHTML += "</div>";
 
+	// Now manipulate the DOM
 	$( '#questionsSection' ).append( questionHTML );
 	$( '#question' + currentQuestion ).fadeToggle( 300, 'linear' );
 
 };
+
+function giveFeedbackDOM ( isCorrect, quiz, yourGuess ) {
+
+	// Remove the question card
+	clearQuestionDOM();
+
+	var answerHTML = "<div id=\"answer" + quiz.currentQuestion + "\" class=\"grid12 center card marginAbove30 padding30 hidden\">";
+		answerHTML += "<div class=\"grid1 circle center\">";
+		answerHTML += "<h2 class=\"centerText question colorRed\"><span class=\"chinese chineseSmall colorRed\">第</span>" + quiz.currentQuestion + "</h2>";
+		answerHTML += "</div>";
+		answerHTML += "<p class=\"centerText marginAbove20\">" + quiz.question[ quiz.currentQuestion - 1 ].questionText + "</p>";
+		answerHTML += "<p class=\"chinese chineseBig centerText colorRed\">" + quiz.question[ quiz.currentQuestion - 1 ].chineseText + "</p>";
+		answerHTML += "<div class=\"marginAbove10 yourAnswer\">";
+		answerHTML += "<p class=\"centerText\">" + quiz.question[ quiz.currentQuestion - 1].answers[ yourGuess ] + "</p>";
+		answerHTML += "</div>";
+		answerHTML += "<p class=\"centerText marginAbove20 italic\">";
+
+	if ( isCorrect ) {
+		answerHTML += "You're right! You get 10 points!";
+		quiz.score += 10;
+	}
+	else {
+		answerHTML += "You're wrong. The correct answer is \"" + quiz.question[ quiz.currentQuestion - 1].answers[ quiz.question[ quiz.currentQuestion - 1].key ] + "\".";
+	}
+	
+		answerHTML += "</p>";
+		answerHTML += "</div>";
+
+	$( '#answersSection' ).append( answerHTML );
+	$( '#answer' + quiz.currentQuestion ).fadeToggle( 300, 'linear' );
+
+	setScoreDOM ( quiz.score );
+
+};
+
+function displayEndQuizCardDOM ( score, quizLength ) {
+
+	$( '#endScore' ).text( score );
+	$( '#endRank').text( getEndRank( score, (quizLength*10) ) );
+	$( '#endQuizCard').fadeToggle( 300, 'linear' );
+
+}

@@ -71,29 +71,19 @@ By Alex K. Fong for Thinkful's FEWD course -->
 			<p id="headerNewQuizButton" class="centerText hidden">New quiz</p>
 		</div>
 	</header>
+
+	<!-- Where completed questions go -->
+	<section id="answersSection">
+	</section>
 	
 	<!-- Questions appear in the questions section -->
 	<section id="questionsSection">
-		
-
 	</section>
-
-
-	<!-- <section id="question1" class="grid12 center card marginAbove30 padding30 hidden">
-		<div class="grid1 circle center">
-			<h2 class="centerText question colorRed"><span class="chinese chineseSmall colorRed">第</span>1</h2>
-		</div>
-		<p class="centerText marginAbove20">This is the question and it goes right here like this. Could ask user to explain what these characters are:</p>
-		<p class="chinese chineseBig centerText colorRed">中文</p>
-		<div class="marginAbove10 yourAnswer">
-			<p class="centerText">This was the answer you selected</p>
-		</div>
-		<p class="centerText marginAbove20 italic">Displays either the user was correct or the correct answer.</p>
-	</section> -->
 	
+	<!-- Card shows up once the quiz is completed -->
 	<section id="endQuizCard" class="grid12 center card marginAbove30 padding30 hidden">
 		<h2 class="masthead centerText uppercase colorRed">Nice work!</h2>
-		<p class="centerText marginAbove20">You've finished the quiz.<br>You scored ## points, making you a [ranking] of Chinese.</p>
+		<p class="centerText marginAbove20">You've finished the quiz.<br>You scored <span id="endScore">##</span> points, making you a Mandarin Chinese <span id="endRank">[ranking]</span>.</p>
 		<div class="roundedRectangle grid2 center marginAbove20 newQuizButton">
 			<p class="centerText">New quiz</p>
 		</div>
