@@ -4,16 +4,12 @@ $(document).ready( function() {
 
 	// Initialize a new quiz
 	$('.newQuizButton').click( function() {
-
-		console.log("New quiz started!");
 		
 		quiz = startQuiz(3);
 
 		// First quiz, load the navbar
-		if( $('navbar').css('display') == 'none' ) {
-		
+		if( $('navbar').css('display') == 'none' ) {		
 			switchToQuizInterfaceDOM();
-
 		}
 		
 		clearOldQuizDOM();	
@@ -21,11 +17,23 @@ $(document).ready( function() {
 		// load the first question here
 		displayQuestionDOM( quiz.question[ quiz.currentQuestion - 1 ], quiz.currentQuestion );
 
-		console.log( quiz );
 	});
 
-	$( '#questionsSection' ).find( '.card' ).find( '.roundedRectangle' ).click( function() {
+	// Answer to question has been clicked
+	$( '#questionsSection' ).on( 'click', '.card > .roundedRectangle', function() {
+		
 		console.log("Answer clicked");
+
+		var isCorrect = checkAnswer( quiz.question[ quiz.currentQuestion - 1 ], parseInt( this.id, 10 ) );
+
+		console.log(isCorrect);
+
+		// give feedback to the user with the answer card
+
+		// if it's correct, increment the score
+
+		// display the next question or the end card
+	
 	});
 
 });
@@ -123,38 +131,56 @@ function makeQuestion( number ) {
 	var questionText;
 	var chineseText;
 	var answers;
+	var key;
 
 	if( number == 1 ) {
 		questionText = "Translate the following sentence:";
 		chineseText = "你要几个包子?";
 		answers = ['How many bags do you want?', 'What kind of bag do you want?', 'How many dumplings do you want?', 'What kind of dumplings would you like?'];
+		key = 2;
 	}
 	else if( number == 2 ) {
 		questionText = "This is a test question 2 here";
 		chineseText = "你要几个包子?";
 		answers = ['Answer1', 'Answer2', 'Answer3', 'Answer4'];
+		key = 1;
 	}
 	else if( number == 3 ) {
 		questionText = "This is a test question 3 here";
 		chineseText = "你要几个包子?";
 		answers = ['Answer1', 'Answer2', 'Answer3', 'Answer4'];
+		key = 1;
 	}
 	else if( number == 4 ) {
 		questionText = "This is a test question 4 here";
 		chineseText = "你要几个包子?";
 		answers = ['Answer1', 'Answer2', 'Answer3', 'Answer4'];
+		key = 1;
 	}
 	else if( number == 5 ) {
 		questionText = "This is a test question 5 here";
 		chineseText = "你要几个包子?";
 		answers = ['Answer1', 'Answer2', 'Answer3', 'Answer4'];
+		key = 1;
 	}
 
 	return {
 		questionText: questionText,
 		chineseText: chineseText,
-		answers: answers
+		answers: answers,
+		key: key
 	};
+};
+
+function checkAnswer ( question, guess ) {
+
+	if( question.key == guess ) {
+		return true;
+	}
+	else {
+		return false;
+	}
+
 };
 
 function clearOldQuizDOM() {
@@ -210,7 +236,7 @@ function displayQuestionDOM( question, currentQuestion ) {
 		questionHTML += "<p class=\"chinese chineseBig centerText colorRed\">" + question.chineseText + "</p>";
 
 	for( var i=0; i < 4; i++ ) {
-		questionHTML += "<div id=\"answer" + i + "\"class=\"marginAbove10 roundedRectangle\">";
+		questionHTML += "<div id=\"" + i + "answer\" class=\"marginAbove10 roundedRectangle\">";
 		questionHTML += "<p class=\"centerText\">" + question.answers[i] + "</p>";
 		questionHTML += "</div>";
 	}
